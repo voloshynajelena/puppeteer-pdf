@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>A simple, clean, and responsive HTML invoice template</title>
+</head>
+<body>
+<p><button>Download</button></p>
+</body>
+</html>
+<script>
+    const body = {
+        "content": "<p><button>Download</button></p>"
+    };
+    const config = { headers: new Headers({
+            'Content-Type': 'application/json',
+        }),
+        method: "POST",
+        body: JSON.stringify(body) // Dynamic data
+    };
+    const url = 'http://localhost:7071/api/generate-pdf';
+    fetch(url, config)
+        .then(res => res.blob())
+        .then(res => {
+
+            const blob =  new Blob([res], { type: 'application/pdf' });
+            window.open(URL.createObjectURL(blob, { type: 'application/pdf' }));
+        })
+</script>
